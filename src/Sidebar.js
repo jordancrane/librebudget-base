@@ -1,11 +1,11 @@
 import React from 'react';
 import Typography from 'material-ui/Typography';
 import ClippedDrawer from './ClippedDrawer';
-import NestedList from './ClippedDrawer';
+import NestedList from './NestedList';
 import Divider from 'material-ui/Divider';
 import Collapse from 'material-ui/transitions/Collapse';
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
-import SendIcon from 'material-ui-icons/Send';
+import StarBorder from 'material-ui-icons/StarBorder';
 
 class Sidebar extends React.Component {
   render() {
@@ -13,6 +13,9 @@ class Sidebar extends React.Component {
       <ClippedDrawer
         title={<AppTitle />}
         drawerContent={<DrawerContent />}
+        onClickBudget={this.showBudget}
+        onClickReports={this.showReports}
+        onClickAllAccounts={this.showAllAccounts}
       >
         <h1> Hello, sidebar</h1>
       </ClippedDrawer>
@@ -24,15 +27,15 @@ function DrawerContent(props) {
   const views = [
     {
       text: 'Budget', 
-      icon: <SendIcon />
+      icon: <StarBorder />
     },
     {
       text: 'Reports',
-      icon: <SendIcon />
+      icon: <StarBorder />
     },
     {
       text: 'All Accounts',
-      icon: <SendIcon />
+      icon: <StarBorder />
     },
   ];
   const budgetAccounts = [
@@ -56,11 +59,6 @@ function DrawerContent(props) {
       budgetAccounts={budgetAccounts}
     />
   );
-  //return (
-  //  <SimpleList 
-  //    views={views}
-  //  />
-  //);
 }
 
 class SimpleList extends React.Component {

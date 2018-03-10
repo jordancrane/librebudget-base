@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import Divider from 'material-ui/Divider';
-import InboxIcon from 'material-ui-icons/MoveToInbox';
-import DraftsIcon from 'material-ui-icons/Drafts';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
-import StarBorder from 'material-ui-icons/StarBorder';
 
 const styles = (theme) => ({
   root: {
@@ -25,7 +21,7 @@ const styles = (theme) => ({
 class NestedList extends React.Component {
   constructor (props) {
     super(props);
-    state = { open: true };
+    this.state = { open: true };
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -45,7 +41,7 @@ class NestedList extends React.Component {
           <ListItemButtons items={views} />
           <Divider/>
           <ListItem button onClick={this.handleClick}>
-            <ListItemText inset primary="Budget Accounts" />
+            <ListItemText primary="Budget Accounts" />
             {this.state.open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
@@ -85,5 +81,4 @@ NestedList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-//export default withStyles(styles)(NestedList);
-export default NestedList;
+export default withStyles(styles)(NestedList);
