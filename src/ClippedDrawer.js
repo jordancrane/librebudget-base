@@ -4,7 +4,6 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Divider from 'material-ui/Divider';
 
 const drawerWidth = 240;
 
@@ -50,7 +49,7 @@ function ClippedDrawer(props) {
         }}
       >
         <div className={classes.toolbar} />
-        {props.sidebarContent}
+        {props.drawerContent}
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />

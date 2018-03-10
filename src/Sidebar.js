@@ -2,13 +2,15 @@ import React from 'react';
 import Typography from 'material-ui/Typography';
 import ClippedDrawer from './ClippedDrawer';
 import Divider from 'material-ui/Divider';
-import { List, ListItem } from 'material-ui/List';
+import List, { ListItem } from 'material-ui/List';
+import { Drawer } from 'material-ui';
 
 class Sidebar extends React.Component {
   render() {
     return (
       <ClippedDrawer
         title={<AppTitle />}
+        drawerContent={<DrawerContent />}
       >
         <h1> Hello, sidebar</h1>
       </ClippedDrawer>
@@ -16,12 +18,13 @@ class Sidebar extends React.Component {
   }
 }
 
-function SidebarContent(props) {
+function DrawerContent(props) {
   return (
     <List>
-      <ListItem></ListItem>
-      <Divider/>
-      <ListItem></ListItem>
+      <ListItem button>Budget</ListItem>
+      <ListItem button>Reports</ListItem>
+      <ListItem button>All Accounts</ListItem>
+      <Divider />
     </List>
   );
 }
