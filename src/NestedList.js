@@ -56,6 +56,7 @@ class NestedList extends React.Component {
 }
 
 function ListItemButtons(props) {
+  //TODO: Is this the best way to abstract this functionality? 
   return (
     props.items.map((item) => {
       let icon = null;
@@ -68,7 +69,7 @@ function ListItemButtons(props) {
       }
 
       return (
-        <ListItem button className={props.className}>
+        <ListItem button className={props.className} key={item.id}>
           {icon}
           <ListItemText inset primary={item.text} />
         </ListItem>

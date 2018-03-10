@@ -1,113 +1,87 @@
 import React from 'react';
-import Typography from 'material-ui/Typography';
-import ClippedDrawer from './ClippedDrawer';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import accountStatus from './constants';
 import NestedList from './NestedList';
-import Divider from 'material-ui/Divider';
-import Collapse from 'material-ui/transitions/Collapse';
-import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
-import StarBorder from 'material-ui-icons/StarBorder';
 
-class Sidebar extends React.Component {
-  render() {
-    return (
-      <ClippedDrawer
-        title={<AppTitle />}
-        drawerContent={<DrawerContent />}
-        onClickBudget={this.showBudget}
-        onClickReports={this.showReports}
-        onClickAllAccounts={this.showAllAccounts}
+const drawerWidth = 240;
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    vh: 100,
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  drawerPaper: {
+    position: 'relative',
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3,
+    minWidth: 0, // So the Typography noWrap works
+  },
+  toolbar: theme.mixins.toolbar,
+});
+
+function Sidebar(props) {
+  const { classes } = props;
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="absolute" className={classes.appBar}>
+        <Toolbar>
+            {props.title}
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
       >
-        <h1> Hello, sidebar</h1>
-      </ClippedDrawer>
-    );
-  }
+        <div className={classes.toolbar} />
+        <SidebarContent 
+          onViewClick={props.showView}
+          views={props.views}
+          accounts={props.accounts}
+        />
+      </Drawer>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {props.children}
+      </main>
+    </div>
+  );
 }
 
-function DrawerContent(props) {
-  const views = [
-    {
-      text: 'Budget', 
-      icon: <StarBorder />
-    },
-    {
-      text: 'Reports',
-      icon: <StarBorder />
-    },
-    {
-      text: 'All Accounts',
-      icon: <StarBorder />
-    },
-  ];
-  const budgetAccounts = [
-    {
-      text: 'Checking', 
-      icon: null
-    },
-    {
-      text: 'Savings',
-      icon: null
-    },
-    {
-      text: 'Credit Card',
-      icon: null
-    },
-  ];
+function SidebarContent(props) {
+  const budgetAccounts = props.accounts.filter((account) => account.status === accountStatus.budget);
+  // TODO: Add support for more account types
+  //const offBudgetAccounts = props.accounts.filter((account) => account.status === accountStatus.offBudget);
+  //const closedAccounts = props.accounts.filter((account) => account.status === accountStatus.closed);
 
   return (
     <NestedList 
-      views={views}
+      views={props.views}
       budgetAccounts={budgetAccounts}
     />
   );
 }
 
-class SimpleList extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      open: true
-    };
+Sidebar.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState((prevState) => ({
-      open: !prevState.open
-    }));
-  }
-
-  render() {
-    return (
-      <div>
-        <List>
-          <ListItem button onClick={this.handleClick}>
-            <ListItemText primary="Something"/>
-          </ListItem>
-          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-            <List>
-              {this.props.views.map((view) => {
-                return (
-                  <ListItem button>
-                    <ListItemText primary={view.text}/>
-                  </ListItem>
-                );
-              })}
-            </List>
-          </Collapse>
-        </List>
-      </div>
-    );
-  }
-}
-
-function AppTitle(props) {
-  return (
-    <Typography variant="title" color="inherit" noWrap>
-      LibreBudget
-    </Typography>
-  );
-}
-
-export default Sidebar;
+export default withStyles(styles)(Sidebar);
