@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import MainContainer from './MainContainer'
-import StarBorder from 'material-ui-icons/StarBorder';
-import { accountStatus, appView } from './constants';
+import { accountStatus, appViews, appView } from './constants';
+import ContentArea from './ContentArea';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      view: appView.budget
+      view: appView.budget,
+      accountId: 0
     };
 
     this.selectView = this.selectView.bind(this);
@@ -18,41 +19,19 @@ class App extends Component {
       {
         text: 'Checking', 
         status: accountStatus.budget,
-        id: 0
+        id: 1
       },
       {
         text: 'Savings',
         status: accountStatus.budget,
-        id: 1
+        id: 2
       },
       {
         text: 'Credit Card',
         status: accountStatus.budget,
-        id: 2
+        id: 3
       },
     ];
-
-    this.views = [
-      {
-        text: 'Budget', 
-        id: 0,
-        appView: appView.budget,
-        icon: <StarBorder />
-      },
-      {
-        text: 'Reports',
-        id: 1,
-        appView: appView.reports,
-        icon: <StarBorder />
-      },
-      {
-        text: 'All Accounts',
-        id: 2,
-        appView: appView.accounts,
-        icon: <StarBorder />
-      },
-    ];
-
   }
 
   selectView(view) {
@@ -62,38 +41,13 @@ class App extends Component {
   render() {
     return (
       <MainContainer
-        content={<AppView appView={this.state.view}/>}
-        views={this.views}
+        content={<ContentArea appView={this.state.view}/>}
+        views={appViews}
         accounts={this.accounts}
         onViewSelect={this.selectView}
       />
     );
   }
-}
-
-function AppView(props) {
-  switch (props.appView) {
-    case appView.budget:
-      return <BudgetView />;
-    case appView.reports:
-      return <ReportsView />;
-    case appView.accounts:
-      return <AccountsView />;
-    default:
-      throw("Not a valid view");
-  }
-}
-
-function BudgetView(props) {
-  return <h1>Hello, Budget View!</h1>;
-}
-
-function ReportsView(props) {
-  return <h1>Hello, Reports View!</h1>;
-}
-
-function AccountsView(props) {
-  return <h1>Hello, Accounts View!</h1>;
 }
 
 export default App;
