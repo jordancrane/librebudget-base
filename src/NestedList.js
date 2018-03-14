@@ -38,7 +38,16 @@ class NestedList extends React.Component {
     return (
       <div className={classes.root}>
         <List component="nav">
-          <ListItemButtons items={views} />
+          {views.map((item) => {
+            return (
+              <ListItem button key={item.id} onClick={() => this.props.onViewSelect(item.appView)}>
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText inset primary={item.text} />
+              </ListItem>
+            )
+          })}
           <Divider/>
           <ListItem button onClick={this.handleClick}>
             <ListItemText primary="Budget Accounts" />
@@ -46,36 +55,19 @@ class NestedList extends React.Component {
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButtons items={budgetAccounts} className={classes.nested}/>
+              {budgetAccounts.map((item) => {
+                return (
+                  <ListItem button className={classes.nested} key={item.id}>
+                    <ListItemText inset primary={item.text} />
+                  </ListItem>
+                )
+              })}
             </List>
           </Collapse>
         </List>
       </div>
     );
   }
-}
-
-function ListItemButtons(props) {
-  //TODO: Is this the best way to abstract this functionality? 
-  return (
-    props.items.map((item) => {
-      let icon = null;
-      if (item.icon) {
-        icon = (
-          <ListItemIcon>
-            {item.icon}
-          </ListItemIcon>
-        );
-      }
-
-      return (
-        <ListItem button className={props.className} key={item.id}>
-          {icon}
-          <ListItemText inset primary={item.text} />
-        </ListItem>
-      );
-    })
-  );
 }
 
 NestedList.propTypes = {

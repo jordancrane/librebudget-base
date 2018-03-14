@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import accountStatus from './constants';
+import { accountStatus } from './constants';
 import NestedList from './NestedList';
 
 const drawerWidth = 240;
@@ -38,6 +38,7 @@ function Sidebar(props) {
   const { classes } = props;
 
   return (
+    //TODO: Move AppBar out of Sidebar into it's own file
     <div className={classes.root}>
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
@@ -52,7 +53,7 @@ function Sidebar(props) {
       >
         <div className={classes.toolbar} />
         <SidebarContent 
-          onViewClick={props.showView}
+          onViewSelect={props.onViewSelect}
           views={props.views}
           accounts={props.accounts}
         />
@@ -75,6 +76,7 @@ function SidebarContent(props) {
     <NestedList 
       views={props.views}
       budgetAccounts={budgetAccounts}
+      onViewSelect={props.onViewSelect}
     />
   );
 }

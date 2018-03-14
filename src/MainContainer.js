@@ -10,6 +10,7 @@ class MainContainer extends React.Component {
         onViewClick={this.props.showView}
         views={this.props.views}
         accounts={this.props.accounts}
+        onViewSelect={this.props.onViewSelect}
       >
         {this.props.content}
       </Sidebar>
