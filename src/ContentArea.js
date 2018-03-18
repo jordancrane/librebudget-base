@@ -9,7 +9,7 @@ function ContentArea(props) {
       return <ReportsView />;
     case appView.accounts:
       //TODO: Allow switching between various accounts in AccountsView
-      return <AccountsView account={props.account}/>;
+      return <AccountsView />;
     default:
       throw("Not a valid view");
   }
@@ -25,7 +25,7 @@ function ReportsView(props) {
 
 function AccountsView(props) {
   return (
-    <h1>Hello, {props.account.name}!</h1>
+    <h1>Hello, Accounts View!</h1>
   );
 }
 

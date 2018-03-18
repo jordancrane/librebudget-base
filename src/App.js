@@ -19,23 +19,18 @@ class App extends Component {
     // TODO: Load/store this using JSON
     this.accounts = [
       <Account
-        name="All Accounts" 
-        id={1}
-        status={accountStatus.budget}
-      />,
-      <Account
         name="Checking" 
-        id={1}
+        id={0}
         status={accountStatus.budget}
       />,
       <Account
         name="Savings" 
-        id={2}
+        id={1}
         status={accountStatus.budget}
       />,
       <Account
         name="Credit Card" 
-        id={3}
+        id={2}
         status={accountStatus.budget}
       />
     ];
@@ -44,7 +39,6 @@ class App extends Component {
   selectView(view, account) {
     this.setState({
       view: view, 
-      account: account
     });
   }
   
@@ -52,12 +46,11 @@ class App extends Component {
     return (
       <AppWindow
         title={<AppTitle>LibreBudget</AppTitle>}
-        onViewClick={this.props.showView}
         views={appViews}
         accounts={this.accounts}
         onViewSelect={this.selectView}
       >
-        <ContentArea appView={this.state.view} account={this.state.account}/>
+        <ContentArea appView={this.state.view}/>
       </AppWindow>
     );
   }

@@ -5,8 +5,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Sidebar from './Sidebar';
 
-const drawerWidth = 240;
-
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -18,10 +16,6 @@ const styles = theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    width: drawerWidth,
   },
   content: {
     flexGrow: 1,
@@ -44,10 +38,10 @@ function AppWindow(props) {
         </Toolbar>
       </AppBar>
       <Sidebar 
-        classes={classes} 
         onViewSelect={props.onViewSelect}
         views={props.views}
         accounts={props.accounts}
+        toolbar={classes.toolbar}
       />
       <main className={classes.content}>
         <div className={classes.toolbar} />
