@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Collapse from 'material-ui/transitions/Collapse';
 import Divider from 'material-ui/Divider';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
 import { accountStatus } from './constants';
+import AccountList from './AccountList';
 
 const drawerWidth = 240;
 
@@ -47,7 +45,6 @@ function Sidebar(props) {
           />
           <Divider/>
           <AccountList 
-            classes={classes}
             category="Budget Accounts"
             accounts={budgetAccounts}
           />
@@ -72,56 +69,17 @@ function Sidebar(props) {
 
 function ViewList(props) {
   return (
-    props.views.map((item) => {
+    props.views.map((view) => {
       return (
-        <ListItem button key={item.id} onClick={() => props.onViewSelect(item.appView)}>
+        <ListItem button key={view.id} onClick={() => props.onViewSelect(view.appView)}>
           <ListItemIcon>
-            {item.icon}
+            {view.icon}
           </ListItemIcon>
-          <ListItemText inset primary={item.text} />
+          <ListItemText inset primary={view.text} />
         </ListItem>
       )
     })
   );
-}
-
-class AccountList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false
-    };
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState((previousState) => ({ 
-      open: !previousState.open 
-    }));
-  };
-
-  render() {
-    return (
-        <div>
-        <ListItem button onClick={this.handleClick}>
-          <ListItemText primary={this.props.category}/>
-          {this.state.open ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            {this.props.accounts.map((account) => {
-              return (
-                <ListItem button className={this.props.classes.nested} key={account.id}>
-                  <ListItemText inset primary={account.name} />
-                </ListItem>
-              )
-            })}
-          </List>
-        </Collapse>
-      </div>
-    );
-  }
 }
 
 Sidebar.propTypes = {

@@ -1,11 +1,30 @@
-import React, { Component } from 'react';
-import AppWindow from './AppWindow'
-import { accountStatus, appViews, appView } from './constants';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Sidebar from './Sidebar';
 import ContentArea from './ContentArea';
+import { accountStatus, appViews, appView } from './constants';
 import Account from './Account';
 import Typography from 'material-ui/Typography';
 
-class App extends Component {
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    vh: 100,
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  toolbar: theme.mixins.toolbar,
+});
+
+class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,32 +55,42 @@ class App extends Component {
     ];
   }
 
-  selectView(view, account) {
+  selectView(view) {
     this.setState({
       view: view, 
     });
   }
-  
+
   render() {
+    const { classes } = this.props;
+
     return (
-      <AppWindow
-        title={<AppTitle>LibreBudget</AppTitle>}
-        views={appViews}
-        accounts={this.accounts}
-        onViewSelect={this.selectView}
-      >
-        <ContentArea appView={this.state.view}/>
-      </AppWindow>
+      //TODO: Move AppBar out of Sidebar into it's own file
+      <div className={classes.root}>
+        <AppBar position="absolute" className={classes.appBar}>
+          <Toolbar>
+            <Typography variant="title" color="inherit">
+              LibreBudget
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Sidebar 
+          onViewSelect={this.selectView}
+          views={appViews}
+          accounts={this.accounts}
+          toolbar={classes.toolbar}
+        />
+        <ContentArea 
+          appView={this.state.view}
+          toolbar={classes.toolbar}
+        />
+      </div>
     );
   }
 }
 
-function AppTitle(props) {
-  return (
-    <Typography variant="title" color="inherit" noWrap>
-      {props.children}
-    </Typography>
-  );
-}
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export default App;
+export default withStyles(styles)(App);
