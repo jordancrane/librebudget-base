@@ -84,6 +84,7 @@ class App extends React.Component {
         </AppBar>
         <Sidebar 
           onViewSelect={this.selectView}
+          onAddAccount={this.addAccount}
           views={appViews}
           accounts={this.accounts}
           toolbar={classes.toolbar}

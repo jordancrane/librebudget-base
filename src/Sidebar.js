@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import AccountList from './AccountList';
+import AddAccountButton from './AddAccountButton';
 
 const drawerWidth = 240;
 
@@ -59,6 +60,7 @@ function Sidebar(props) {
           />
           */}
         </List>
+        <AddAccountButton onClick={props.onAddAccount}/>
       </div>
     </Drawer>
   );
