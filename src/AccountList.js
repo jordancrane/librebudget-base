@@ -5,6 +5,7 @@ import Collapse from 'material-ui/transitions/Collapse';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
+import { appViews, appView } from './constants';
 
 const styles = (theme) => ({
   nested: {
@@ -41,8 +42,8 @@ class AccountList extends React.Component {
           <List component="div" disablePadding>
             {this.props.accounts.map((account) => {
               return (
-                <ListItem button className={classes.nested} key={account.id}>
-                  <ListItemText inset primary={account.name} />
+                <ListItem button className={classes.nested} key={account.entityId} onClick={() => this.props.onViewSelect(appView.accounts, account.entityId)}>
+                  <ListItemText inset primary={account.accountName} />
                 </ListItem>
               )
             })}

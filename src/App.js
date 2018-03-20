@@ -6,7 +6,6 @@ import Toolbar from 'material-ui/Toolbar';
 import Sidebar from './Sidebar';
 import ContentArea from './ContentArea';
 import { accountStatus, appViews, appView } from './constants';
-import Account from './Account';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
@@ -37,27 +36,37 @@ class App extends React.Component {
 
     // TODO: Load/store this using JSON
     this.accounts = [
-      <Account
-        name="Checking" 
-        id={0}
-        status={accountStatus.budget}
-      />,
-      <Account
-        name="Savings" 
-        id={1}
-        status={accountStatus.budget}
-      />,
-      <Account
-        name="Credit Card" 
-        id={2}
-        status={accountStatus.budget}
-      />
+      {
+        accountName: "Checking Account",
+        accountType: "Checking",
+        entityId: 0,
+        entityType: "account",
+        onBudget: true,
+        hidden: false
+      },
+      {
+        accountName: "Savings Account",
+        accountType: "Savings",
+        entityId: 1,
+        entityType: "account",
+        onBudget: true,
+        hidden: false
+      },
+      {
+        accountName: "Credit Card",
+        accountType: "Credit Card",
+        entityId: 2,
+        entityType: "account",
+        onBudget: true,
+        hidden: false
+      }
     ];
   }
 
-  selectView(view) {
+  selectView(view, displayEntityId = -1) {
     this.setState({
       view: view, 
+      displayEntityId: displayEntityId
     });
   }
 
@@ -65,7 +74,6 @@ class App extends React.Component {
     const { classes } = this.props;
 
     return (
-      //TODO: Move AppBar out of Sidebar into it's own file
       <div className={classes.root}>
         <AppBar position="absolute" className={classes.appBar}>
           <Toolbar>
@@ -81,7 +89,9 @@ class App extends React.Component {
           toolbar={classes.toolbar}
         />
         <ContentArea 
+          accounts={this.accounts}
           appView={this.state.view}
+          displayEntityId={this.displayEntityId}
           toolbar={classes.toolbar}
         />
       </div>

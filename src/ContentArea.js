@@ -24,8 +24,10 @@ function ContentArea(props) {
       view = <ReportsView />;
       break;
     case appView.accounts:
-      //TODO: Allow switching between various accounts in AccountsView
-      view = <AccountsView />;
+      view = <AccountsView 
+        accounts={props.accounts} 
+        displayEntityId={props.displayEntityId}
+      />;
       break;
     default:
       throw("Not a valid view");
@@ -48,8 +50,20 @@ function ReportsView(props) {
 }
 
 function AccountsView(props) {
+  let accountName;
+  if (props.displayEntityId === -1) {
+    accountName = "All Accounts"
+  } else {
+    accountName = props.accounts.find(account => account.entityId === props.displayEntityId);
+  }
+
+  console.log(accountName);
+
   return (
-    <h1>Hello, Accounts View!</h1>
+    <div>
+      <h1>Hello, Accounts View!</h1>
+      <h2>Account: {accountName}</h2>
+    </div>
   );
 }
 

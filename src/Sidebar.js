@@ -19,14 +19,11 @@ const styles = (theme) => ({
     position: 'relative',
     width: drawerWidth,
   },
-  nested: {
-    paddingLeft: theme.spacing.unit * 4,
-  },
 });
 
 function Sidebar(props) {
   const { classes, views } = props;
-  const budgetAccounts = props.accounts.filter((account) => account.status === accountStatus.budget);
+  const budgetAccounts = props.accounts.filter((account) => account.onBudget === true);
   // TODO: Add support for more account types
   //const offBudgetAccounts = props.accounts.filter((account) => account.status === accountStatus.offBudget);
   //const closedAccounts = props.accounts.filter((account) => account.status === accountStatus.closed);
@@ -47,6 +44,7 @@ function Sidebar(props) {
           <AccountList 
             category="Budget Accounts"
             accounts={budgetAccounts}
+            onViewSelect={props.onViewSelect}
           />
           {/*TODO: Add off-budget and closed accounts*/}
           {/*
