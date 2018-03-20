@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import StarBorder from 'material-ui-icons/StarBorder';
 
 const appView = {
@@ -28,10 +28,4 @@ const appViews = [
     },
 ];
 
-const accountStatus = {
-  budget: 0,
-  offBudget: 1,
-  closed: 2
-}
-
-export { accountStatus, appView, appViews };
+export { appView, appViews };

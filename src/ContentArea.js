@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { accountStatus, appViews, appView } from './constants';
+import React from 'react';
+import { appView } from './constants';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
@@ -30,7 +30,7 @@ function ContentArea(props) {
       />;
       break;
     default:
-      throw("Not a valid view");
+      throw("Not a valid view", props.appView);
   }
 
   return(
@@ -54,10 +54,8 @@ function AccountsView(props) {
   if (props.displayEntityId === -1) {
     accountName = "All Accounts"
   } else {
-    accountName = props.accounts.find(account => account.entityId === props.displayEntityId);
+    accountName = props.accounts.find((account) => account.entityId === props.displayEntityId).accountName;
   }
-
-  console.log(accountName);
 
   return (
     <div>

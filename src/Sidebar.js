@@ -4,7 +4,6 @@ import Drawer from 'material-ui/Drawer';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import { accountStatus } from './constants';
 import AccountList from './AccountList';
 
 const drawerWidth = 240;
@@ -22,7 +21,7 @@ const styles = (theme) => ({
 });
 
 function Sidebar(props) {
-  const { classes, views } = props;
+  const { classes } = props;
   const budgetAccounts = props.accounts.filter((account) => account.onBudget === true);
   // TODO: Add support for more account types
   //const offBudgetAccounts = props.accounts.filter((account) => account.status === accountStatus.offBudget);

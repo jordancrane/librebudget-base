@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Sidebar from './Sidebar';
 import ContentArea from './ContentArea';
-import { accountStatus, appViews, appView } from './constants';
+import { appViews, appView } from './constants';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
@@ -91,7 +91,7 @@ class App extends React.Component {
         <ContentArea 
           accounts={this.accounts}
           appView={this.state.view}
-          displayEntityId={this.displayEntityId}
+          displayEntityId={this.state.displayEntityId}
           toolbar={classes.toolbar}
         />
       </div>
