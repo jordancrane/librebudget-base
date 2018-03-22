@@ -33,8 +33,11 @@ class App extends React.Component {
     };
 
     this.selectView = this.selectView.bind(this);
+    this.createAccount = this.createAccount.bind(this);
+    this.entityId = 3;
 
     // TODO: Load/store this using JSON
+    // TODO: Does this really belong in app? Would Redux be a better solution?
     this.accounts = [
       {
         accountName: "Checking Account",
@@ -70,6 +73,24 @@ class App extends React.Component {
     });
   }
 
+  createAccount(
+    accountName,
+    currentBalance,
+    currentBalanceDate,
+    accountType,
+    onBudget, 
+  ) 
+  {
+    this.accounts.push({
+      accountName: accountName,
+      accountType: accountType,
+      entityType: "account",
+      entityId: this.entityId,
+      hidden: false,
+    });
+    this.entityId += 1;
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -88,6 +109,7 @@ class App extends React.Component {
           views={appViews}
           accounts={this.accounts}
           toolbar={classes.toolbar}
+          onCreateAccount={this.createAccount}
         />
         <ContentArea 
           accounts={this.accounts}
