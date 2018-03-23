@@ -60,7 +60,7 @@ function Sidebar(props) {
           />
           */}
         </List>
-        <AddAccountDialog onClick={props.onCreateAccount}/>
+        <AddAccountDialog onCreateAccount={props.onCreateAccount}/>
       </div>
     </Drawer>
   );

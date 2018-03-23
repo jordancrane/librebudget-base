@@ -29,41 +29,16 @@ class App extends React.Component {
 
     this.state = {
       view: appView.budget,
-      account: 0
+      account: 0,
+      // TODO: Load/store this using JSON
+      // TODO: Does this really belong in app? Would Redux be a better solution?
+      accounts: [],
     };
 
     this.selectView = this.selectView.bind(this);
     this.createAccount = this.createAccount.bind(this);
     this.entityId = 3;
 
-    // TODO: Load/store this using JSON
-    // TODO: Does this really belong in app? Would Redux be a better solution?
-    this.accounts = [
-      {
-        accountName: "Checking Account",
-        accountType: "Checking",
-        entityId: 0,
-        entityType: "account",
-        onBudget: true,
-        hidden: false
-      },
-      {
-        accountName: "Savings Account",
-        accountType: "Savings",
-        entityId: 1,
-        entityType: "account",
-        onBudget: true,
-        hidden: false
-      },
-      {
-        accountName: "Credit Card",
-        accountType: "Credit Card",
-        entityId: 2,
-        entityType: "account",
-        onBudget: true,
-        hidden: false
-      }
-    ];
   }
 
   selectView(view, displayEntityId = -1) {
@@ -79,15 +54,18 @@ class App extends React.Component {
     currentBalanceDate,
     accountType,
     onBudget, 
-  ) 
-  {
-    this.accounts.push({
+  ){
+    const accounts = this.state.accounts;
+    const newAccount = {
       accountName: accountName,
       accountType: accountType,
+      onBudget: onBudget === "true",
       entityType: "account",
       entityId: this.entityId,
       hidden: false,
-    });
+    };
+    accounts.push(newAccount);
+    this.setState({accounts: accounts});
     this.entityId += 1;
   }
 
@@ -107,12 +85,12 @@ class App extends React.Component {
           onViewSelect={this.selectView}
           onAddAccount={this.addAccount}
           views={appViews}
-          accounts={this.accounts}
+          accounts={this.state.accounts}
           toolbar={classes.toolbar}
           onCreateAccount={this.createAccount}
         />
         <ContentArea 
-          accounts={this.accounts}
+          accounts={this.state.accounts}
           appView={this.state.view}
           displayEntityId={this.state.displayEntityId}
           toolbar={classes.toolbar}

@@ -125,7 +125,6 @@ export default class AddAccountDialog extends React.Component {
             </Button>
             <Button 
               onClick={() => {
-                //FIXME: Figure out why this isn't working
                 this.props.onCreateAccount(
                   this.state.accountName,
                   this.state.currentBalance,
@@ -133,6 +132,7 @@ export default class AddAccountDialog extends React.Component {
                   this.state.accountType,
                   this.state.onBudget
                 );
+                this.handleClose();
               }}
               color="secondary"
               variant="raised"
