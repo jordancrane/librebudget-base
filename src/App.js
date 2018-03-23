@@ -30,15 +30,19 @@ class App extends React.Component {
     this.state = {
       view: appView.budget,
       account: 0,
-      // TODO: Load/store this using JSON
+      // TODO: Load/store accounts/transactions/etc... using JSON
       // TODO: Does this really belong in app? Would Redux be a better solution?
       accounts: [],
+      transactions: [],
+      payees: [{
+        //TODO: Create special payees at budget creation time
+        name: "Starting Balance",
+        entityId: "P0", // Special payees get entityIds of form Px where x increments from 0
+      }],
     };
 
     this.selectView = this.selectView.bind(this);
     this.createAccount = this.createAccount.bind(this);
-    this.entityId = 3;
-
   }
 
   selectView(view, displayEntityId = -1) {
@@ -55,18 +59,30 @@ class App extends React.Component {
     accountType,
     onBudget, 
   ){
-    const accounts = this.state.accounts;
+    const { accounts, transactions } = this.state;
+
     const newAccount = {
+      entityId: createUuid(),
       accountName: accountName,
       accountType: accountType,
       onBudget: onBudget === "true",
-      entityType: "account",
-      entityId: this.entityId,
       hidden: false,
     };
+
+    const newTransaction = {
+      entityId: createUuid(),
+      accountId: newAccount.entityId,
+      payeeId: "P0",
+      amount: currentBalance,
+      date: currentBalanceDate,
+    };
+
     accounts.push(newAccount);
-    this.setState({accounts: accounts});
-    this.entityId += 1;
+    transactions.push(newTransaction);
+    this.setState({
+      accounts: accounts,
+      transactions: transactions,
+    });
   }
 
   render() {
@@ -94,10 +110,20 @@ class App extends React.Component {
           appView={this.state.view}
           displayEntityId={this.state.displayEntityId}
           toolbar={classes.toolbar}
+          transactions={this.state.transactions}
+          payees={this.state.payees}
         />
       </div>
     );
   }
+}
+
+function createUuid()
+{
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c === 'x' ? r : ((r&0x3)|0x8);
+        return v.toString(16);
+    });
 }
 
 App.propTypes = {

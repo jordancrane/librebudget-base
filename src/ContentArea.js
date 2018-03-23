@@ -27,6 +27,8 @@ function ContentArea(props) {
       view = <AccountsView 
         accounts={props.accounts} 
         displayEntityId={props.displayEntityId}
+        transactions={props.transactions}
+        payees={props.payees}
       />;
       break;
     default:
@@ -42,25 +44,44 @@ function ContentArea(props) {
 }
 
 function BudgetView(props) {
+  //TODO: Flesh out budget view
   return <h1>Hello, Budget View!</h1>;
 }
 
 function ReportsView(props) {
+  //TODO: Flesh out reports view
   return <h1>Hello, Reports View!</h1>;
 }
 
 function AccountsView(props) {
-  let accountName;
+  //TODO: Flesh out accounts view
+  let accountName, transactions;
   if (props.displayEntityId === -1) {
     accountName = "All Accounts"
+    transactions = props.transactions;
   } else {
-    accountName = props.accounts.find((account) => account.entityId === props.displayEntityId).accountName;
+    let account = props.accounts.find(account => account.entityId === props.displayEntityId);
+    accountName = account.accountName;
+    transactions = props.transactions.filter(transaction => transaction.accountId === account.entityId);
   }
 
   return (
     <div>
       <h1>Hello, Accounts View!</h1>
       <h2>Account: {accountName}</h2>
+      <h2>Transactions:</h2>
+      <ul>
+        {/*TODO: Create an actual table for transactions*/}
+        {transactions.map(transaction => {
+          return (
+            <li key={transaction.entityId}>
+              {transaction.date} | {
+              props.payees.find(payee => payee.entityId === transaction.payeeId).name} | {
+              transaction.amount}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

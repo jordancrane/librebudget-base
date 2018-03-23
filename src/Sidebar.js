@@ -21,6 +21,7 @@ const styles = (theme) => ({
   },
 });
 
+//TODO: Make selected sidebar button stay highlighted 
 function Sidebar(props) {
   const { classes } = props;
   const budgetAccounts = props.accounts.filter((account) => account.onBudget === true);

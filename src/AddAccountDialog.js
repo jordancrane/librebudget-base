@@ -52,7 +52,7 @@ export default class AddAccountDialog extends React.Component {
               margin="normal"
               label="Name"
               type="text"
-              defaultValue="New Account"
+              defaultValue={this.state.accountName}
               onChange={this.handleChange}
               fullWidth
             />
@@ -71,7 +71,7 @@ export default class AddAccountDialog extends React.Component {
               margin="normal"
               label="Date of Current Balance"
               type="date"
-              defaultValue={new Date().toISOString().split('T')[0]}
+              defaultValue={this.state.currentBalanceDate}
               onChange={this.handleChange}
               fullWidth
             />
