@@ -4,38 +4,34 @@ import TextField from 'material-ui/TextField';
 import Dialog, {
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
 import AddAccountButton from './AddAccountButton';
 import Select from 'material-ui/Select';
 import { MenuItem } from 'material-ui/Menu';
-import Input, { InputLabel } from 'material-ui/Input';
+import { InputLabel } from 'material-ui/Input';
 import { FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 
 export default class AddAccountDialog extends React.Component {
   state = {
-    accountName: '',
-    currentBalance: '',
-    currentBalanceDate: '',
-    accountType: '',
-    onBudget: '',
-    open: false
+    accountName: 'New Account',
+    currentBalance: 0,
+    currentBalanceDate: new Date().toISOString().split('T')[0],
+    accountType: 'Checking',
+    onBudget: 'true',
+    dialogOpen: false
   };
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    this.setState({ dialogOpen: true });
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ dialogOpen: false });
   };
 
   handleChange = event => {
-    console.log(event);
-    console.log(event.target);
-    console.log(event.target.name, ":", event.target.value);
     this.setState({[event.target.name]: event.target.value});
   };
 
@@ -44,7 +40,7 @@ export default class AddAccountDialog extends React.Component {
       <div>
         <AddAccountButton onClick={this.handleClickOpen}/>
         <Dialog
-          open={this.state.open}
+          open={this.state.dialogOpen}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
@@ -56,7 +52,7 @@ export default class AddAccountDialog extends React.Component {
               margin="normal"
               label="Name"
               type="text"
-              placeholder="New Account"
+              defaultValue="New Account"
               onChange={this.handleChange}
               fullWidth
             />
@@ -65,7 +61,7 @@ export default class AddAccountDialog extends React.Component {
               margin="normal"
               label="Current Balance"
               type="number"
-              placeholder="0.00"
+              defaultValue="0.00"
               inputProps={{step: 0.01}}
               onChange={this.handleChange}
               fullWidth
