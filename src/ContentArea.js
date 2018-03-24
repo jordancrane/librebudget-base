@@ -57,11 +57,12 @@ function ReportsView(props) {
 function AccountsView(props) {
   //TODO: Flesh out accounts view
   let accountName, transactions;
+  const { accounts, payees } = props;
   if (props.displayEntityId === -1) {
     accountName = "All Accounts"
     transactions = props.transactions;
   } else {
-    let account = props.accounts.find(account => account.entityId === props.displayEntityId);
+    let account = accounts.find(account => account.entityId === props.displayEntityId);
     accountName = account.accountName;
     transactions = props.transactions.filter(transaction => transaction.accountId === account.entityId);
   }
@@ -70,6 +71,8 @@ function AccountsView(props) {
     <TransactionTable 
       title={accountName}
       transactions={transactions}
+      payees={payees}
+      accounts={accounts}
     />
     /*
     {transactions.map(transaction => {

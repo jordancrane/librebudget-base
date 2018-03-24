@@ -36,13 +36,51 @@ class App extends React.Component {
       transactions: [],
       payees: [{
         //TODO: Create special payees at budget creation time
-        name: "Starting Balance",
+        payeeName: "Starting Balance",
         entityId: "P0", // Special payees get entityIds of form Px where x increments from 0
       }],
     };
 
     this.selectView = this.selectView.bind(this);
     this.createAccount = this.createAccount.bind(this);
+    this.createTransaction = this.createTransaction.bind(this);
+
+    this.createAccount(
+      "My Account",
+      200,
+      new Date().toISOString().split('T')[0],
+      "Checking",
+      "true"
+    );
+    [
+      {
+        accountId: this.state.accounts[0].entityId,
+        payeeId: "P0",
+        amount: 100,
+        date: new Date().toISOString().split('T')[0],
+        category: "foo"
+      },
+      {
+        accountId: this.state.accounts[0].entityId,
+        payeeId: "P0",
+        amount: -200,
+        date: new Date().toISOString().split('T')[0],
+        category: "bar"
+      },
+      {
+        accountId: this.state.accounts[0].entityId,
+        payeeId: "P0",
+        amount: 50,
+        date: new Date().toISOString().split('T')[0],
+        category: "foobar"
+      }
+    ].forEach(t => this.createTransaction(
+      t.date,
+      t.accountId,
+      t.payeeId,
+      t.amount,
+      t.category,
+    ));
   }
 
   selectView(view, displayEntityId = -1) {
@@ -63,8 +101,8 @@ class App extends React.Component {
 
     const newAccount = {
       entityId: createUuid(),
-      accountName: accountName,
-      accountType: accountType,
+      accountName,
+      accountType,
       onBudget: onBudget === "true",
       hidden: false,
     };
@@ -83,6 +121,22 @@ class App extends React.Component {
       accounts: accounts,
       transactions: transactions,
     });
+  }
+
+  createTransaction(
+    date,
+    accountId,
+    payeeId,
+    amount,
+    category,
+    memo = null,
+  ){
+    const { transactions } = this.state;
+    const newTransaction = { 
+      entityId: createUuid(), date, accountId, payeeId, amount, category, memo
+    };
+    transactions.push(newTransaction);
+    this.setState({ transactions });
   }
 
   render() {
