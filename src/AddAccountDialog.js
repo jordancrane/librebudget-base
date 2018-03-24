@@ -120,6 +120,7 @@ export default class AddAccountDialog extends React.Component {
               Cancel
             </Button>
             <Button 
+              //TODO: Check that all fields are populated
               onClick={() => {
                 this.props.onCreateAccount(
                   this.state.accountName,

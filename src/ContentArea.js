@@ -2,6 +2,7 @@ import React from 'react';
 import { appView } from './constants';
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
+import TransactionTable from './TransactionTable';
 
 const styles = theme => ({
   content: {
@@ -66,23 +67,21 @@ function AccountsView(props) {
   }
 
   return (
-    <div>
-      <h1>Hello, Accounts View!</h1>
-      <h2>Account: {accountName}</h2>
-      <h2>Transactions:</h2>
-      <ul>
-        {/*TODO: Create an actual table for transactions*/}
-        {transactions.map(transaction => {
-          return (
-            <li key={transaction.entityId}>
-              {transaction.date} | {
-              props.payees.find(payee => payee.entityId === transaction.payeeId).name} | {
-              transaction.amount}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <TransactionTable 
+      title={accountName}
+      transactions={transactions}
+    />
+    /*
+    {transactions.map(transaction => {
+      return (
+        <li key={transaction.entityId}>
+          {transaction.date} | {
+          props.payees.find(payee => payee.entityId === transaction.payeeId).name} | {
+          transaction.amount}
+        </li>
+      );
+    })}
+    */
   );
 }
 
