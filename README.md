@@ -10,8 +10,14 @@ I hope to eventually have feature-parity with YNAB4 in an easy-to-use, cross-pla
 
 ## Goals
 - [ ] Implement core functionality
+  - [ ] Budget view
+  - [ ] Accounts view
+  - [ ] Reports view
 - [ ] Create Electron desktop app
 - [ ] Add syncing to cloud service of choice (Dropbox, Drive, etc...)
-- [ ] Add option to encrypt sync data
+  - [ ] Add option to encrypt sync data
 - [ ] Create React Native companion mobile app
-- [ ] YNAB data import
+- [ ] Create robust data ownership features
+  - [ ] CSV data import
+  - [ ] CSV data export
+  - [ ] YNAB data import
