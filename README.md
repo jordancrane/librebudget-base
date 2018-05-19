@@ -1,5 +1,5 @@
 # librebudget-base
-Open source users need a budget
+Budgeting software that is free as in speech and free as in beer 
 
 ## Open source alternative to YNAB
 I really like YNAB but a subscription pricing model goes against the spirit of budgeting in my mind. 
